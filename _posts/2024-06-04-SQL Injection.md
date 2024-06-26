@@ -1,8 +1,8 @@
 ---
 title: "SQL Injection"
-date: 2024-06-04
-categories: [Journal]
-tags: [Journal]
+date: 2024-06-26
+categories: [What is]
+tags: [Web, injection, Bug Bounty]
 ---
 
 #### What is a SQL Injection?
