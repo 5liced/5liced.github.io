@@ -9,7 +9,7 @@ tags: [Malware, APT]
 
 North Koreas "Happy Door" malware has recently resurfaced and been updated according to security researchers. Although it isn't widely spread and not much action has been seen, it still has been actively used by the North Korean APT group `Kimsuky`. It has been dubbed `Happy Door` due to researchers finding the word `happy` in strings.
 
-![debug strings](image.png)
+![debug strings](/assets/img/image.png)
 
 Like most malware it's first compressed in a email attachment. The compressed file is a JScript dropper which creates and runs `Happy Door`. It also fake bait file to throw people off.
 
@@ -67,9 +67,9 @@ Taking from the install step it self replicates using the .otp extension
 
 This is where the fun stuff starts. The main functions of `Happy Door` is the information stealing and backdooring. It uses RSA encryption to communicate with the C2 server and store all the configs in the registry.
 
-![alt text](image-1.png)
+![alt text](/assets/img/image-1.png)
 
-![alt text](image-2.png)
+![alt text](/assets/img/image-2.png)
 
 While this isn't a complex malware or major concern at the moment, the updates and developments to the malware highlight NK's active use of it and it had a funny name :). 
 
