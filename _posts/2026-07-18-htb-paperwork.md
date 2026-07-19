@@ -9,6 +9,22 @@ retired: "2026-07-01"
 tags: [printer, sockets, daemon, python]
 ---
 
+
+```text
+PORT     STATE SERVICE
+53/tcp   open  domain
+88/tcp   open  kerberos-sec
+389/tcp  open  ldap
+```
+
+```console
+$ nmap -sC -sV 10.10.10.161
+Starting Nmap 7.94...
+PORT   STATE SERVICE
+53/tcp open  domain
+```
+
+
 `PaperWork` was a fun and straightforward machine centered around abusing Printer Job Language (`PJL`) to communicate with a printer service and gain an initial foothold. The privilege escalation was equally interesting, involving the exploitation of a `socket` misconfiguration through inherited file descriptors to obtain root. While the overall difficulty was relatively low, having to learn and work with `PJL` made the box require a bit more work and thinking.
 
 ## Recon

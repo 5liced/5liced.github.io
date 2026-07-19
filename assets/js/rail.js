@@ -1,3 +1,16 @@
+document.querySelectorAll('.post-content pre').forEach(function (block) {
+  var btn = document.createElement('button');
+  btn.textContent = 'copy';
+  btn.className = 'copy-btn';
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(block.innerText.replace(/^\$\s/, ''));
+    btn.textContent = 'copied';
+    setTimeout(function () { btn.textContent = 'copy'; }, 1200);
+  });
+  block.style.position = 'relative';
+  block.appendChild(btn);
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   var content = document.querySelector(".post-content");
   var railTrack = document.querySelector(".rail-track");

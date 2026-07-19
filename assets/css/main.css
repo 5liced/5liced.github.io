@@ -330,10 +330,19 @@ code, pre {
   position: relative;
   margin: 20px 0;
 }
-.post-content pre::before {
+/* NEW — only prefix real commands, not raw output */
+.post-content div.language-bash pre::before,
+.post-content div.language-shell pre::before,
+.post-content div.language-console pre::before {
   content: "$";
   color: var(--accent);
   margin-right: 10px;
+}
+
+/* dim, label raw output so it reads distinctly */
+.post-content div.language-text pre,
+.post-content pre.highlight:not([class*="language-"]) {
+  color: var(--text-dim);
 }
 .post-content p code, .post-content li code {
   background: var(--bg-elevated);
@@ -404,3 +413,13 @@ code, pre {
   .listing-row { grid-template-columns: 1fr; }
   .listing-date { display: none; }
 }
+
+.copy-btn {
+  position: absolute; top: 8px; right: 8px;
+  font-family: var(--mono); font-size: 0.7rem;
+  background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--text-dim); border-radius: 4px;
+  padding: 2px 8px; cursor: pointer; opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.post-content pre:hover .copy-btn { opacity: 1; }
