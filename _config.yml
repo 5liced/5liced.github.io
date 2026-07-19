@@ -1,0 +1,34 @@
+title: "5liced@writeups"
+tagline: "Dumping ground for writeups"
+description: "Hack The Box writeups and offensive security notes."
+author: "5liced"
+email: "5liced"
+url: "https://5liced.github.io"
+baseurl: ""
+
+github_username: 5liced
+twitter_username: 5liced
+
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
+  input: GFM
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-feed
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules

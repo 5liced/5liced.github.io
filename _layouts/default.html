@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include head.html %}
+<body>
+  {% include header.html %}
+  <main class="wrap" style="padding-top: 8px; padding-bottom: 40px;">
+    {{ content }}
+  </main>
+  {% include footer.html %}
+  <script src="{{ '/assets/js/rail.js' | relative_url }}" defer></script>
+</body>
+</html>

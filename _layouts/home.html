@@ -1,0 +1,19 @@
+---
+layout: default
+---
+<div class="listing-head"><span class="path">~/writeups</span> $ ls -la</div>
+<div class="listing">
+  {% for post in site.posts %}
+  <a class="listing-row" href="{{ post.url | relative_url }}">
+    <span class="listing-perm badge badge-{{ post.difficulty | downcase | default: 'easy' }}">{{ post.difficulty | default: "N/A" }}</span>
+    <span class="listing-main">
+      <span class="box-name">{{ post.box_name | default: post.title }}</span>
+      <span class="box-meta">
+        {% if post.os %}<span class="tag">{{ post.os }}</span>{% endif %}
+        {% for tag in post.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+      </span>
+    </span>
+    <span class="listing-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+  </a>
+  {% endfor %}
+</div>

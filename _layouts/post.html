@@ -1,0 +1,25 @@
+---
+layout: default
+---
+<article>
+  <div class="box-meta-bar">
+    {% if page.difficulty %}<span class="badge badge-{{ page.difficulty | downcase }}">{{ page.difficulty }}</span>{% endif %}
+    {% if page.os %}<span class="badge badge-os">{{ page.os }}</span>{% endif %}
+  </div>
+  <h1 class="post-title">{{ page.title }}</h1>
+  <div class="post-subline">
+    {% if page.points %}<span>{{ page.points }} pts</span>{% endif %}
+    {% if page.retired %}<span>retired {{ page.retired }}</span>{% endif %}
+    <span>{{ page.date | date: "%B %-d, %Y" }}</span>
+  </div>
+
+  <div class="post-layout">
+    <nav class="rail">
+      <div class="rail-label">attack chain</div>
+      <div class="rail-track"></div>
+    </nav>
+    <div class="post-content">
+      {{ content }}
+    </div>
+  </div>
+</article>
