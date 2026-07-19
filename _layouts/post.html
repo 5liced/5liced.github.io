@@ -2,11 +2,18 @@
 layout: default
 ---
 <article>
-  <div class="box-meta-bar">
-    {% if page.difficulty %}<span class="badge badge-{{ page.difficulty | downcase }}">{{ page.difficulty }}</span>{% endif %}
-    {% if page.os %}<span class="badge badge-os">{{ page.os }}</span>{% endif %}
+  <div class="post-header">
+  {% if page.box_icon %}
+  <img class="post-icon" src="{{ page.box_icon | relative_url }}" alt="{{ page.box_name }} icon">
+  {% endif %}
+  <div>
+    <div class="box-meta-bar">
+      {% if page.difficulty %}<span class="badge badge-{{ page.difficulty | downcase }}">{{ page.difficulty }}</span>{% endif %}
+      {% if page.os %}<span class="badge badge-os">{{ page.os }}</span>{% endif %}
+    </div>
+    <h1 class="post-title">{{ page.title }}</h1>
   </div>
-  <h1 class="post-title">{{ page.title }}</h1>
+</div>
   <div class="post-subline">
     {% if page.points %}<span>{{ page.points }} pts</span>{% endif %}
     {% if page.retired %}<span>retired {{ page.retired }}</span>{% endif %}
