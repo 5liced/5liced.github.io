@@ -423,3 +423,18 @@ code, pre {
   transition: opacity 0.15s ease;
 }
 .post-content pre:hover .copy-btn { opacity: 1; }
+.post-header {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.post-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  flex-shrink: 0;
+}
