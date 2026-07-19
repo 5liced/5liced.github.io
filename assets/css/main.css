@@ -163,7 +163,7 @@ code, pre {
   margin-bottom: 60px;
 }
 .listing-row {
-  grid-template-columns: 40px 84px 1fr auto; /* was: 84px 1fr auto */
+  grid-template-columns: 84px 1fr auto;
 }
 .listing-row:last-child { border-bottom: none; }
 .listing-row:hover { background: var(--bg-card-hover); text-decoration: none; }
