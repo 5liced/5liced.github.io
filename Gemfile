@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-gem "jekyll", "~> 4.3"
+gem "github-pages", group: :jekyll_plugins
 gem "jekyll-sitemap"
 gem "jekyll-seo-tag"
 gem "jekyll-feed"
 
-gem "webrick", "~> 1.8"
+gem "webrick", "~> 1.8" # needed for local `jekyll serve` on Ruby 3+
