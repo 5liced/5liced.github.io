@@ -4,6 +4,8 @@ title: "PaperWork — HTB Writeup"
 box_name: PaperWork
 os: Linux
 difficulty: Easy
+points: 20
+retired: "2026-07-01"
 tags: [printer, sockets, daemon, python]
 ---
 
