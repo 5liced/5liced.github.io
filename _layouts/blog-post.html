@@ -1,0 +1,28 @@
+---
+layout: default
+---
+<article>
+  <div class="post-header">
+    <div>
+      <div class="box-meta-bar">
+        <span class="badge badge-blog">blog</span>
+        {% for tag in page.tags %}<span class="badge badge-os">{{ tag }}</span>{% endfor %}
+      </div>
+      <h1 class="post-title">{{ page.title }}</h1>
+    </div>
+  </div>
+  <div class="post-subline">
+    <span>{{ page.date | date: "%B %-d, %Y" }}</span>
+    {% if page.read_time %}<span>{{ page.read_time }} min read</span>{% endif %}
+  </div>
+
+  <div class="post-layout">
+    <nav class="rail">
+      <div class="rail-label">on this page</div>
+      <div class="rail-track"></div>
+    </nav>
+    <div class="post-content">
+      {{ content }}
+    </div>
+  </div>
+</article>

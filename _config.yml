@@ -20,12 +20,22 @@ plugins:
   - jekyll-seo-tag
   - jekyll-feed
 
+collections:
+  blog:
+    output: true
+    permalink: /blog/:title/
+
 defaults:
   - scope:
       path: ""
       type: "posts"
     values:
       layout: "post"
+  - scope:
+      path: ""
+      type: "blog"
+    values:
+      layout: "blog-post"
 
 exclude:
   - Gemfile

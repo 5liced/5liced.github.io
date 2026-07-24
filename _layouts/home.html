@@ -1,23 +1,98 @@
 ---
 layout: default
 ---
-<div class="listing-head"><span class="path">~/writeups</span> $ ls -la</div>
-<div class="listing">
-  {% for post in site.posts %}
-  <a class="listing-row" href="{{ post.url | relative_url }}">
-    <span class="listing-perm badge badge-{{ post.difficulty | downcase | default: 'easy' }}">{{ post.difficulty | default: "N/A" }}</span>
-    <span class="listing-main">
-<span class="box-name">
-  {% if post.box_icon %}
-  <img class="box-icon-inline" src="{{ post.box_icon | relative_url }}" alt="">
-  {% endif %}
-  {{ post.box_name | default: post.title }}
-</span>      <span class="box-meta">
-        {% if post.os %}<span class="tag">{{ post.os }}</span>{% endif %}
-        {% for tag in post.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+{% assign total_boxes = site.posts.size %}
+{% assign easy = site.posts | where: "difficulty", "Easy" | size %}
+{% assign medium = site.posts | where: "difficulty", "Medium" | size %}
+{% assign hard = site.posts | where: "difficulty", "Hard" | size %}
+{% assign insane = site.posts | where: "difficulty", "Insane" | size %}
+{% assign total_points = 0 %}
+{% for p in site.posts %}{% assign total_points = total_points | plus: p.points %}{% endfor %}
+{% assign all_content = site.posts | concat: site.blog | sort: "date" | reverse %}
+{% assign latest = all_content.first %}
+{% if total_boxes > 0 %}
+{% assign easy_pct = easy | times: 100.0 | divided_by: total_boxes %}
+{% assign medium_pct = medium | times: 100.0 | divided_by: total_boxes %}
+{% assign hard_pct = hard | times: 100.0 | divided_by: total_boxes %}
+{% assign insane_pct = insane | times: 100.0 | divided_by: total_boxes %}
+{% endif %}
+
+<section class="dash-stats">
+  <div class="dash-avatar" aria-hidden="true">
+    <img class="dash-avatar-img" src="{{ '/assets/favicon.svg' | relative_url }}" alt="favicon">
+  </div>
+  <div class="dash-specs">
+    <div class="spec-line"><span class="spec-key">whoami</span><span class="spec-value">{{ site.author }}</span></div>
+    <div class="spec-line"><span class="spec-key">boxes_rooted</span><span class="spec-value">{{ total_boxes }}</span></div>
+    <div class="spec-line"><span class="spec-key">posts_written</span><span class="spec-value">{{ site.blog.size }}</span></div>
+    {% if latest %}
+    <div class="spec-line"><span class="spec-key">last_activity</span><span class="spec-value">{{ latest.date | date: "%Y-%m-%d" }} — {{ latest.title | truncate: 40 }}</span></div>
+    {% endif %}
+    {% if total_boxes > 0 %}
+    <div class="spec-line spec-diff">
+      <span class="spec-key">difficulty</span>
+      <div class="diff-bar">
+        {% if easy > 0 %}<span class="diff-seg diff-easy" style="width: {{ easy_pct }}%" title="Easy: {{ easy }}"></span>{% endif %}
+        {% if medium > 0 %}<span class="diff-seg diff-medium" style="width: {{ medium_pct }}%" title="Medium: {{ medium }}"></span>{% endif %}
+        {% if hard > 0 %}<span class="diff-seg diff-hard" style="width: {{ hard_pct }}%" title="Hard: {{ hard }}"></span>{% endif %}
+        {% if insane > 0 %}<span class="diff-seg diff-insane" style="width: {{ insane_pct }}%" title="Insane: {{ insane }}"></span>{% endif %}
+      </div>
+      <div class="diff-legend">
+        <span><i class="dot dot-easy"></i>easy {{ easy }}</span>
+        <span><i class="dot dot-medium"></i>medium {{ medium }}</span>
+        <span><i class="dot dot-hard"></i>hard {{ hard }}</span>
+        <span><i class="dot dot-insane"></i>insane {{ insane }}</span>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<section id="ctf" class="dash-section">
+  <div class="listing-head"><span class="path">~/writeups/ctf</span> $ ls -la</div>
+  <div class="listing">
+    {% for post in site.posts %}
+    <a class="listing-row" href="{{ post.url | relative_url }}">
+      <span class="listing-perm badge badge-{{ post.difficulty | downcase | default: 'easy' }}">{{ post.difficulty | default: "N/A" }}</span>
+      <span class="listing-main">
+        <span class="box-name">
+          {% if post.box_icon %}
+          <img class="box-icon-inline" src="{{ post.box_icon | relative_url }}" alt="">
+          {% endif %}
+          {{ post.box_name | default: post.title }}
+        </span>
+        <span class="box-meta">
+          {% if post.os %}<span class="tag">{{ post.os }}</span>{% endif %}
+          {% for tag in post.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+        </span>
       </span>
-    </span>
-    <span class="listing-date">{{ post.date | date: "%Y-%m-%d" }}</span>
-  </a>
-  {% endfor %}
-</div>
+      <span class="listing-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+    </a>
+    {% endfor %}
+    {% if total_boxes == 0 %}
+    <div class="listing-row"><span class="listing-main">nothing here yet — drop a writeup in <code>_posts</code></span></div>
+    {% endif %}
+  </div>
+</section>
+
+<section id="blog" class="dash-section">
+  <div class="listing-head blog"><span class="path">~/blog</span> $ cat *.md | head</div>
+  <div class="blog-grid">
+    {% for post in site.blog %}
+    <a class="blog-card" href="{{ post.url | relative_url }}">
+      <div class="blog-card-meta">
+        <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+        {% if post.read_time %}<span>{{ post.read_time }} min read</span>{% endif %}
+      </div>
+      <h3 class="blog-card-title">{{ post.title }}</h3>
+      <p class="blog-card-excerpt">{{ post.excerpt | default: post.content | strip_html | truncate: 150 }}</p>
+      <div class="blog-card-tags">
+        {% for tag in post.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+      </div>
+    </a>
+    {% endfor %}
+    {% if site.blog.size == 0 %}
+    <div class="blog-card">nothing here yet — drop a post in <code>_blog</code></div>
+    {% endif %}
+  </div>
+</section>
