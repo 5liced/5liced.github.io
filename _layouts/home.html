@@ -47,12 +47,18 @@ layout: default
     {% endif %}
   </div>
 </section>
-
 <section id="ctf" class="dash-section">
   <div class="listing-head"><span class="path">~/writeups/ctf</span> $ ls -la</div>
-  <div class="listing">
+
+  <!-- 🔍 SEARCH BAR – ADDED HERE -->
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="🔎  filter by name, OS, tag, or difficulty…" />
+  </div>
+
+  <div class="listing" id="post-listing">
     {% for post in site.posts %}
-    <a class="listing-row" href="{{ post.url | relative_url }}">
+    <a class="listing-row" href="{{ post.url | relative_url }}" 
+       data-search="{{ post.box_name | downcase }} {{ post.os | downcase }} {{ post.tags | join: ' ' | downcase }} {{ post.difficulty | downcase }}">
       <span class="listing-perm badge badge-{{ post.difficulty | downcase | default: 'easy' }}">{{ post.difficulty | default: "N/A" }}</span>
       <span class="listing-main">
         <span class="box-name">
@@ -74,6 +80,72 @@ layout: default
     {% endif %}
   </div>
 </section>
+
+<!-- 🧠 SEARCH SCRIPT -->
+<style>
+  .search-bar {
+    padding: 0.5rem 0.75rem;
+    margin: 0.25rem 0 0.75rem 0;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--border-color, #2a2e3a);
+  }
+  #search-input {
+    width: 100%;
+    padding: 0.5rem 0.8rem;
+    background: var(--bg, #0A0C10);
+    color: var(--accent, #FF8A3D);
+    border: 1px solid var(--border-color, #3a3f4a);
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  #search-input:focus {
+    border-color: var(--accent, #FF8A3D);
+    box-shadow: 0 0 10px rgba(255, 138, 61, 0.15);
+  }
+  #search-input::placeholder {
+    color: rgba(255, 138, 61, 0.4);
+  }
+  .listing-row.hidden {
+    display: none !important;
+  }
+</style>
+
+<script>
+  (function() {
+    const input = document.getElementById('search-input');
+    const rows = document.querySelectorAll('#post-listing .listing-row');
+
+    function filterRows() {
+      const query = input.value.toLowerCase().trim();
+      let anyVisible = false;
+
+      rows.forEach(row => {
+        // Use the data-search attribute we built in Liquid
+        const searchData = (row.dataset.search || '').toLowerCase();
+        // Also include the visible text as a fallback
+        const textContent = row.textContent.toLowerCase();
+        const match = query === '' || searchData.includes(query) || textContent.includes(query);
+        row.classList.toggle('hidden', !match);
+        if (match) anyVisible = true;
+      });
+
+      // Optionally show a "no results" message (you can add a <div> if you like)
+      // For now we'll just keep the rows hidden.
+      // If you want a message, uncomment the lines below and add #no-results element.
+      // const noResults = document.getElementById('no-results');
+      // if (noResults) noResults.style.display = anyVisible ? 'none' : 'block';
+    }
+
+    input.addEventListener('input', filterRows);
+    // initial run – if the input has a pre‑filled value
+    filterRows();
+  })();
+</script>
+
 
 <section id="blog" class="dash-section">
   <div class="listing-head blog"><span class="path">~/blog</span> $ cat *.md | head</div>
