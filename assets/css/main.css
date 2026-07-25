@@ -617,3 +617,103 @@ code, pre {
   border: 1px solid var(--border);
   flex-shrink: 0;
 }
+/* ---------- TOP BAR (flex layout) ---------- */
+.dash-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+/* ---------- YOUTUBE WIDGET ---------- */
+.youtube-widget {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 1rem 0.3rem 0.8rem;
+  background: rgba(10, 12, 16, 0.85);
+  border: 1px solid var(--accent, #FF8A3D);
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: var(--accent, #FF8A3D);
+  box-shadow: 0 0 18px rgba(255, 138, 61, 0.04);
+  transition: all 0.25s ease-in-out;
+  backdrop-filter: blur(2px);
+  white-space: nowrap;
+}
+
+.youtube-widget:hover {
+  border-color: #ffffff;
+  box-shadow: 0 0 30px rgba(255, 138, 61, 0.2);
+  background: rgba(10, 12, 16, 0.95);
+}
+
+/* widget elements */
+.yt-icon {
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+.yt-channel a {
+  color: var(--accent, #FF8A3D);
+  text-decoration: none;
+  font-weight: bold;
+}
+.yt-channel a:hover {
+  color: #ffffff;
+}
+.yt-sep {
+  color: #3a3f4a;
+  user-select: none;
+}
+.yt-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.yt-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #ff3b30;
+  border-radius: 50%;
+  animation: blink-dot 1.2s infinite;
+  box-shadow: 0 0 6px #ff3b30;
+}
+@keyframes blink-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.2; transform: scale(0.8); }
+}
+#sub-count {
+  font-weight: bold;
+  min-width: 2.8rem;
+  display: inline-block;
+  text-align: right;
+}
+.yt-latest {
+  color: var(--accent, #FF8A3D);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(255, 138, 61, 0.2);
+}
+.yt-latest:hover {
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 720px) {
+  .dash-topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .youtube-widget {
+    white-space: normal;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
